@@ -17,6 +17,22 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+	mavenLocal()
+	mavenCentral()
+
+	flatDir {
+		dirs("libs")
+	}
+
+	maven {
+		name = "Modmuss50"
+		url = "https://maven.modmuss50.me/"
+		content {
+			includeGroup "RebornCore"
+			includeGroup "TechReborn"
+			includeGroup "teamreborn"
+		}
+	}
 }
 
 dependencies {
@@ -32,6 +48,14 @@ dependencies {
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+
+	// Depend upon CC Restitched
+	modApi "com.github.cc-tweaked:cc-restitched:${project.cc_version}"
+
+	// Depend upon Tech Reborn Energy API
+	include modApi("teamreborn:energy:${project.tr_energy_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 }
 
 processResources {
