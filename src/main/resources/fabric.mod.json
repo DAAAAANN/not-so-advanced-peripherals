@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "not-so-advanced-peripherals",
+	"version": "${version}",
+	"name": "Not So Advanced Peripherals",
+	"description": "Not so advanced peripherals for CC: Restitched!",
+	"authors": [
+		"DAAAAANN"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/DAAAAANN/not-so-advanced-peripherals"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/not-so-advanced-peripherals/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "me.daaaaann.NotSoAdvancedPeripherals",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"not-so-advanced-peripherals.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.19.2",
+		"java": ">=17",
+		"fabric-api": "*",
+		"fabric-language-kotlin": ">=1.8.21"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
