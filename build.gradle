@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.2-SNAPSHOT'
 	id 'maven-publish'
-  id "org.jetbrains.kotlin.jvm" version "1.8.21"
+	id "org.jetbrains.kotlin.jvm" version "1.8.21"
 }
 
 version = project.mod_version
@@ -12,27 +12,26 @@ base {
 }
 
 repositories {
+
 	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
 	mavenLocal()
 	mavenCentral()
 
-	flatDir {
-		dirs("libs")
-	}
+	// Required for CC:R
+	maven { url "https://jitpack.io" }
 
-	maven {
-		name = "Modmuss50"
-		url = "https://maven.modmuss50.me/"
-		content {
-			includeGroup "RebornCore"
-			includeGroup "TechReborn"
-			includeGroup "teamreborn"
-		}
-	}
+	// Required for Cobalt
+	maven { url "https://squiddev.cc/maven" }
+
+	// Required for Modmenu
+	maven { url "https://maven.terraformersmc.com/releases/" }
+
+	// Required fpr REI
+	maven { url "https://maven.shedaniel.me/" }
+
+	// Required for TechReborn and TechReborn Energy
+	maven { url "https://maven.fabricmc.net/"}
+	maven { url "https://maven.fabricmc.net/teamreborn/energy/"}
 }
 
 dependencies {
@@ -42,20 +41,20 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}+${project.minecraft_version}"
 	modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
-	// Uncomment the following line to enable the deprecated Fabric API modules. 
-	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
-
-	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
 	// Depend upon CC Restitched
-	modApi "com.github.cc-tweaked:cc-restitched:${project.cc_version}"
+	modImplementation "com.github.cc-tweaked:cc-restitched:${project.ccr_version}"
+	// Below disabled as it causes a crash on load. (Not sure why.)
+	//modApi "com.github.cc-tweaked:cc-restitched:${project.ccr_version}"
 
-	// Depend upon Tech Reborn Energy API
-	include modApi("teamreborn:energy:${project.tr_energy_version}") {
-		exclude(group: "net.fabricmc.fabric-api")
-	}
+	// Depend upon REI
+	modImplementation "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
+
+	// Depend upon Tech Reborn and Tech Reborn Energy API (not what they recommend but works)
+	modImplementation "TechReborn:TechReborn-1.19:${project.tr_version}"
+	modImplementation "teamreborn:energy:${project.tr_energy_version}"
 }
 
 processResources {
